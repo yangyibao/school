@@ -21,4 +21,8 @@ public interface SerCompanyService {
     int updateCompanyDynamic(SerCompanyVO serCompanyVO);
 
     int deleteCompanyById(Integer companyId);
+
+    List<SerCompanyVO> querySerCompanyListTagJoin();
+
+    List<SerCompanyVO> querySerCompanyListTagAsso();
 }

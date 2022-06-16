@@ -58,5 +58,15 @@ public class SerCompanyServiceImpl implements SerCompanyService {
         return serCompanyMapper.deleteCompanyById(companyId);
     }
 
+    @Override
+    public List<SerCompanyVO> querySerCompanyListTagJoin() {
+        return serCompanyMapper.selectSerCompanyListTagJoin();
+    }
+
+    @Override
+    public List<SerCompanyVO> querySerCompanyListTagAsso() {
+        return serCompanyMapper.selectSerCompanyListTagAsso();
+    }
+
 
 }

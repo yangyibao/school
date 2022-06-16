@@ -1,5 +1,6 @@
 package com.study.dao;
 
+import com.study.model.SerCompanyTagVO;
 import com.study.model.SerCompanyVO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -61,4 +62,23 @@ public interface SerCompanyMapper {
      * @return
      */
     int deleteCompanyById(Integer companyId);
+
+    /**
+     * 一对多查询公司信息 包含公司标签 join 方式
+     * @return
+     */
+    List<SerCompanyVO> selectSerCompanyListTagJoin();
+
+    /**
+     * 一对多查询公司信息 包含公司标签 asso 方式
+     * @return
+     */
+    List<SerCompanyVO> selectSerCompanyListTagAsso();
+
+    /**
+     * 一对多查询公司信息 包含公司标签 asso 方式
+     * @param companyId
+     * @return
+     */
+    SerCompanyTagVO getSerCompanyTag(int companyId);
 }

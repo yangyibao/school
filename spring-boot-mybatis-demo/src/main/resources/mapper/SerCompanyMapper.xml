@@ -2,6 +2,7 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.study.dao.SerCompanyMapper">
 
+    <!-- 映射结果集 SerCompanyVO -->
     <resultMap id="resultMap" type="SerCompanyVO">
         <id column="company_id" property="companyId" jdbcType="INTEGER" />
         <result column="company_name" property="companyName" jdbcType="VARCHAR" />
@@ -9,6 +10,45 @@
         <result column="company_msg" property="companyMsg" jdbcType="VARCHAR" />
         <result column="company_crdt" property="companyCrdt" jdbcType="VARCHAR" />
     </resultMap>
+
+    <!-- 映射结果集 SerCompanyTagVO -->
+    <resultMap id="serCompanyTagResultMap" type="SerCompanyTagVO">
+        <id column="tag_id" property="tagId" jdbcType="INTEGER" />
+        <result column="tag_name" property="tagName" jdbcType="VARCHAR" />
+        <result column="tag_msg" property="tagMsg" jdbcType="VARCHAR" />
+        <result column="company_id" property="companyId" jdbcType="INTEGER" />
+    </resultMap>
+    
+    <!-- 一对多查询 join 结果集 -->
+    <resultMap id="tagResultMap" type="SerCompanyVO" extends="resultMap">
+        <collection property="list" ofType="SerCompanyTagVO">
+            <id column="tag_id" property="tagId" jdbcType="INTEGER" />
+            <result column="tag_name" property="tagName" jdbcType="VARCHAR" />
+            <result column="tag_msg" property="tagMsg" jdbcType="VARCHAR" />
+        </collection>
+    </resultMap>
+
+    <!-- 一对多查询 join 语句-->
+    <select id="selectSerCompanyListTagJoin" resultMap="tagResultMap">
+        SELECT c.company_id,c.company_name, company_code, company_msg, company_crdt,
+        t.tag_id,t.tag_msg,t.tag_name FROM ser_company c
+        LEFT JOIN ser_company_tag t ON c.company_id = t.company_id
+    </select>
+
+    <!-- 一对多查询 asso 结果集 -->
+    <resultMap id="assoResultMap" type="com.study.model.SerCompanyVO" extends="resultMap">
+        <association property="list"  column="company_id" select="getSerCompanyTag"/>
+    </resultMap>
+
+    <!-- 一对多查询  asso方式 主表查询 -->
+    <select id="getSerCompanyTag" resultMap="serCompanyTagResultMap" parameterType="int">
+          select t.company_id,t.tag_id,t.tag_msg,t.tag_name from ser_company_tag t where t.company_id=#{companyId}
+    </select>
+
+    <!-- 一对多查询  asso方式 字表查询 -->
+    <select id="selectSerCompanyListTagAsso" resultMap="assoResultMap">
+        select company_id,company_name, company_code, company_msg, company_crdt from ser_company
+    </select>
 
     <!-- 新增数据 固定语句 -->
     <insert id="insertSerCompanyVO" useGeneratedKeys="true" keyProperty="companyId">
@@ -57,7 +97,7 @@
     </insert>
 
     <!-- 新增数据 批量插入 -->
-    <insert id="insertCompanyBatch">
+    <insert id="insertCompanyBatch" parameterType="list">
         insert into ser_company(
             company_name,
             company_code,
@@ -74,7 +114,8 @@
         </foreach>
     </insert>
 
-    <update id="updateCompanyDynamic" >
+    <!-- 修改信息 动态语句 -->
+    <update id="updateCompanyDynamic" parameterType="SerCompanyVO">
         update ser_company set
         <if test="null != companyName and ''!= companyName">
             company_name = #{companyName, jdbcType=VARCHAR},
@@ -91,7 +132,8 @@
         where company_id = #{companyId, jdbcType=INTEGER}
     </update>
 
-    <update id="updateCompany">
+    <!-- 修改信息 固定语句 -->
+    <update id="updateCompany" parameterType="SerCompanyVO">
         update ser_company set
         company_name = #{companyName, jdbcType=VARCHAR},
         company_code = #{companyCode, jdbcType=VARCHAR},
@@ -101,7 +143,7 @@
     </update>
 
     <!-- 删除数据 -->
-    <delete id="deleteCompanyById">
+    <delete id="deleteCompanyById" parameterType="int">
         delete from ser_company where company_id = #{companyId, jdbcType=INTEGER}
     </delete>
 
@@ -114,6 +156,5 @@
     <select id="selectSerCompanyById" resultMap="resultMap" parameterType="java.lang.Integer">
         select company_id,company_name, company_code, company_msg, company_crdt from ser_company where company_id=#{companyId, jdbcType=INTEGER}
     </select>
-
 
 </mapper>

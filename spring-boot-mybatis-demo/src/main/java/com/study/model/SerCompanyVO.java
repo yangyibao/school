@@ -2,6 +2,8 @@ package com.study.model;
 
 import org.apache.ibatis.type.Alias;
 
+import java.util.List;
+
 @Alias("SerCompanyVO")
 public class SerCompanyVO {
 
@@ -10,6 +12,10 @@ public class SerCompanyVO {
     private String companyCode;
     private String companyMsg;
     private String companyCrdt;
+    private List<SerCompanyTagVO> list;
+
+    private SerCompanyTagVO serCompanyTagVO;
+
 
     public int getCompanyId() {
         return companyId;
@@ -49,5 +55,21 @@ public class SerCompanyVO {
 
     public void setCompanyCrdt(String companyCrdt) {
         this.companyCrdt = companyCrdt;
+    }
+
+    public List<SerCompanyTagVO> getList() {
+        return list;
+    }
+
+    public void setList(List<SerCompanyTagVO> list) {
+        this.list = list;
+    }
+
+    public SerCompanyTagVO getSerCompanyTagVO() {
+        return serCompanyTagVO;
+    }
+
+    public void setSerCompanyTagVO(SerCompanyTagVO serCompanyTagVO) {
+        this.serCompanyTagVO = serCompanyTagVO;
     }
 }

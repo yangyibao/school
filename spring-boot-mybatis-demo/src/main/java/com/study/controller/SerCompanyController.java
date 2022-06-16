@@ -157,6 +157,28 @@ public class SerCompanyController {
         return  ResultUtil.getRsMap(num);
     }
 
+    /**
+     * 查询公司信息 包含标签集合 join 方式
+     * http://localhost:8080/querySerCompanyListTagJoin
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET,value = "querySerCompanyListTagJoin")
+    @ResponseBody
+    public List<SerCompanyVO> querySerCompanyListTagJoin(){
+        return serCompanyService.querySerCompanyListTagJoin();
+    }
+
+
+    /**
+     * 查询公司信息 一对多 查询 asso方式
+     * http://localhost:8080/querySerCompanyListTagAsso
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET,value = "querySerCompanyListTagAsso")
+    @ResponseBody
+    public List<SerCompanyVO> querySerCompanyListTagAsso(){
+        return serCompanyService.querySerCompanyListTagAsso();
+    }
 
 
 
