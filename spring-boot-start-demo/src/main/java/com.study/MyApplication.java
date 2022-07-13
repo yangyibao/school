@@ -1,13 +1,12 @@
 package com.study;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-        import org.springframework.beans.factory.BeanFactory;
-        import org.springframework.boot.SpringApplication;
-        import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-        import org.springframework.web.bind.annotation.RequestMapping;
-        import org.springframework.web.bind.annotation.RestController;
-
-        import java.util.HashMap;
-        import java.util.Map;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @EnableAutoConfiguration
@@ -33,6 +32,5 @@ public class MyApplication {
     public static void main(String[] args) {
         SpringApplication.run(MyApplication.class);
     }
-
 
 }
