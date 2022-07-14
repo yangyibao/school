@@ -12,5 +12,6 @@
         <module>spring-boot-mybatis-demo</module>
         <module>spring-boot-start-demo</module>
         <module>spring-boot-properties</module>
+        <module>spring-boot-redis-demo</module>
     </modules>
 </project>
