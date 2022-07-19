@@ -62,7 +62,7 @@ public class MyApplication {
 
     /**
      * 测试接口 删除key
-     * http://localhost:38081/addList
+     * http://localhost:38081/removeKey
      * @return
      */
     @RequestMapping("removeKey")
