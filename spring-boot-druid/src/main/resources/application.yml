@@ -1,0 +1,37 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    #?serverTimezone=UTC解决时区的报错
+    url: jdbc:mysql://localhost:3306/sbtest?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    #Spring Boot 默认是不注入这些属性值的，需要自己绑定
+    #druid 数据源专有配置
+    initialSize: 8
+    minIdle: 8
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+
+    #配置监控统计拦截的filters，stat:监控统计、logback：日志记录、wall：防御sql注入
+    filters: stat,wall,logback
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+#端口号
+server:
+  port: 8080
+
+################ mybatis ###############
+# 映射文件所在路径
+mybatis:
+  mapper-locations: classpath*:mapping/*.xml
+  type-aliases-package: com.study.model

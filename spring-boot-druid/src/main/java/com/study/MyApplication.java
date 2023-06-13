@@ -1,4 +1,5 @@
 package com.study;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,8 @@ import java.util.Map;
 
 @RestController
 @SpringBootApplication
+
+@MapperScan("com.study.dao")
 public class MyApplication {
 
     /**

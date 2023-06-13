@@ -2,11 +2,18 @@ package com.study;
 import com.study.model.TestDataVO;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +21,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @RestController
-@EnableAutoConfiguration
+@SpringBootApplication
 public class MyApplication {
 
     @Resource
@@ -70,6 +77,42 @@ public class MyApplication {
         Boolean rs = redisTemplate.delete("testList");
         Map<String, Object> rsMap = new HashMap<>();
         rsMap.put("rs", rs);
+        return rsMap;
+    }
+
+    @RequestMapping("testJson")
+    public Map<String,Object> testJson(String name, String age){
+
+        Map<String,Object> rsMap = new HashMap<>();
+        rsMap.put("name", name);
+        rsMap.put("age", age);
+        return rsMap;
+    }
+
+    @PostMapping("testFile")
+    public Map<String, Object> testFile(@RequestParam("file1") MultipartFile file1,@RequestParam("file2") MultipartFile file2, String fileName){
+        Map<String,Object> rsMap = new HashMap<>();
+
+        rsMap.put("file1Name", file1.getOriginalFilename());
+        rsMap.put("file1Size", file1.getSize());
+
+        rsMap.put("file2Name", file2.getOriginalFilename());
+        rsMap.put("file2Size", file2.getSize());
+
+        rsMap.put("fileName", fileName);
+
+        String filePath1 = "D:\\study\\filedir" + File.separator + file1.getOriginalFilename();
+        String filePath2 = "D:\\study\\filedir" + File.separator + file2.getOriginalFilename();
+        File desFile1 = new File(filePath1);
+        File desFile2 = new File(filePath2);
+        try {
+            file1.transferTo(desFile1);
+            file2.transferTo(desFile2);
+        } catch (IllegalStateException | IOException e) {
+            e.printStackTrace();
+        }
+
+
         return rsMap;
     }
 

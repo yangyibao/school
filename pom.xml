@@ -11,7 +11,11 @@
     <modules>
         <module>spring-boot-mybatis-demo</module>
         <module>spring-boot-start-demo</module>
-        <module>spring-boot-properties</module>
+        <module>spring-boot-properties-demo</module>
         <module>spring-boot-redis-demo</module>
+        <module>font</module>
+        <module>tompworld</module>
+        <module>spring-boot-filter-demo</module>
+        <module>spring-boot-druid</module>
     </modules>
 </project>
