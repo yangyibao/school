@@ -17,5 +17,6 @@
         <module>tompworld</module>
         <module>spring-boot-filter-demo</module>
         <module>spring-boot-druid</module>
+        <module>spring-boot-util</module>
     </modules>
 </project>
