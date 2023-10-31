@@ -18,5 +18,6 @@
         <module>spring-boot-filter-demo</module>
         <module>spring-boot-druid</module>
         <module>spring-boot-util</module>
+        <module>spring-boot-office</module>
     </modules>
 </project>
