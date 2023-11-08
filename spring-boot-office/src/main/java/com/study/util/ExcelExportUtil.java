@@ -15,7 +15,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-
 public class ExcelExportUtil {
 
 	private static Logger log = LoggerFactory.getLogger(ExcelExportUtil.class.getName());
@@ -53,6 +52,7 @@ public class ExcelExportUtil {
 				// 输出缓冲区的内容到浏览器，实现文件下载
 				out.write(buffer, 0, len);
 			}
+			log.debug("文件下载成功.");
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());

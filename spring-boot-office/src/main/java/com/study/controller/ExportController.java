@@ -58,8 +58,8 @@ public class ExportController {
      * http://localhost:8080/ExportExcel
      * @param response
      */
-    @GetMapping(value = "/ExportExcel")
-    public void ExportExcel(HttpServletResponse response){
+    @GetMapping(value = "/exportExcel")
+    public void exportExcel(HttpServletResponse response){
         List<BcSerXyzpGwglVO> data = initData();
         List<BcSerXyzpGwglVO> list = new ArrayList<>();
         list.addAll(data);
