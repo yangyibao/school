@@ -1,6 +1,10 @@
 package com.study.controller;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.util.ListUtils;
+import com.fasterxml.jackson.databind.ser.std.MapSerializer;
 import com.study.model.BcSerXyzpGwglVO;
+import com.study.model.DataVO1;
 import com.study.service.BcSerXyzpGwglVOService;
 import com.study.util.ExcelExportUtil;
 import com.study.util.ExcelImportUtil;
@@ -14,13 +18,11 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 导入excel示例
@@ -28,8 +30,11 @@ import java.util.Map;
 @RestController
 public class ExportController {
 
+    /**
+     * 测试数据集合
+     * @return
+     */
     public List<BcSerXyzpGwglVO> initData(){
-
         List<BcSerXyzpGwglVO> list = new ArrayList<>();
         BcSerXyzpGwglVO bcSerXyzpGwglVO = new BcSerXyzpGwglVO();
         bcSerXyzpGwglVO.setGwglBmid(1);
@@ -54,7 +59,7 @@ public class ExportController {
     }
 
     /**
-     * poi 方式导出excel
+     * 导出excel poi方式
      * http://localhost:8080/ExportExcel
      * @param response
      */
@@ -66,7 +71,6 @@ public class ExportController {
         String fileName = "person_journal" + ".xls";
         String[] strMeaning = new String[] {"招聘单位名称","招聘岗位经费形式","招聘部门名称","公告序号","招聘岗位名称","招聘岗位级别","招聘岗位序号"};
         String[] strName = new String[] {"gwglBmid","gwglJfxs","gwglBmmc","gwglGgxh","gwglGwmc","gwglGwjb","gwglGgxh"};
-
 
         // 设置文件名编码集
         try {
@@ -81,6 +85,59 @@ public class ExportController {
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 示例数据 easy-Excel
+     * @return
+     */
+    private List<DataVO1> data() {
+        List<DataVO1> list = ListUtils.newArrayList();
+        for (int i = 0; i < 10; i++) {
+            DataVO1 data = new DataVO1();
+            data.setA1("字符串" + i);
+            data.setA2(new Date()+"");
+            data.setA3("o"+i);
+            data.setA4("A"+i);
+            data.setA5("c"+i);
+            list.add(data);
+        }
+        return list;
+    }
+
+    /**
+     *  导出excel easyExcel 方式
+     * @param response
+     */
+    @GetMapping(value = "/easyExcelExport")
+    public  void easyExcelExport(HttpServletResponse response){
+        // 这里注意 有同学反应使用swagger 会导致各种问题，请直接用浏览器或者用postman
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setCharacterEncoding("utf-8");
+
+        // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
+        String fileName = null;
+        try {
+            fileName = URLEncoder.encode("测试", "UTF-8").replaceAll("\\+", "%20");
+            response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+            //easyExcel 写文档的核心
+            EasyExcel.write(response.getOutputStream(), DataVO1.class).sheet("模板").doWrite(data());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // String path="C:\\doc\\easyExcel\\";
+        // String fileName = path + "write" + System.currentTimeMillis() + ".xlsx";
+        // 这里 需要指定写用哪个class去读，然后写到第一个sheet，名字为模板 然后文件流会自动关闭
+        // 如果这里想使用03 则 传入excelType参数即可
+        // EasyExcel.write(fileName, DataVO1.class).sheet("模板").doWrite(data());
+
+        // Map<String, Object> rsMap = new HashMap<>();
+        // rsMap.put("data", fileName);
+        // return rsMap;
+
     }
 
 }

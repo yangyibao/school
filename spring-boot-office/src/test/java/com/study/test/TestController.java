@@ -3,6 +3,7 @@ package com.study.test;
 import com.study.controller.ExportController;
 import com.study.controller.ImportController;
 import com.study.controller.ZipController;
+import com.study.util.EasyExcelFillTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -133,5 +134,44 @@ public class TestController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * easyExcel 导入
+     */
+    @Test
+    public void easyExcelImplTest(){
+        File file = new File("D:\\workdir\\school\\spring-boot-office\\src\\main\\resources\\doc\\easy_tmp.xlsx");
+        try {
+
+            MultipartFile multipartFile = new MockMultipartFile(
+                    "easy_tmp.xlsx", //文件名
+                    "easy_tmp.xlsx", //originalName 相当于上传文件在客户机上的文件名
+                    MediaType.ALL_VALUE, //文件类型
+                    new FileInputStream(file) //文件流
+            );
+
+            String result = mockMvc.perform(MockMvcRequestBuilders.multipart("/easyExcelImplTest")
+                    .file("file", multipartFile.getBytes())
+                    .characterEncoding("UTF-8")).andExpect(MockMvcResultMatchers.status().isOk()).andReturn().getResponse().getContentAsString();
+            log.debug("rsMap:{}", result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * easyExcel 导出
+     */
+    @Test
+    public void easyExcelExportTest(){
+        try {
+            String result =  mockMvc.perform(MockMvcRequestBuilders.get("/easyExcelExport")).andExpect(MockMvcResultMatchers.status().isOk()).andReturn().getResponse().getContentAsString();
+            log.debug("rsMap:{}", result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }
