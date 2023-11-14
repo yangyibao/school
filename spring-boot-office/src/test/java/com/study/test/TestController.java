@@ -49,6 +49,8 @@ public class TestController {
     @Autowired
     private WebApplicationContext wac;
 
+
+
     /**
      * 在每次测试执行前构建mvc环境
      * 响应中文不乱码
@@ -62,6 +64,8 @@ public class TestController {
         }, "/*").build();
 
     }
+
+
 
     /**
      * 文件夹压缩为zip 测试入口
@@ -172,6 +176,14 @@ public class TestController {
         }
     }
 
+
+    /**
+     *  easyExcel 填充简单数据
+     */
+    @Test
+    public void simpleFill(){
+        new EasyExcelFillTest().simpleFill();
+    }
 
 
 }
