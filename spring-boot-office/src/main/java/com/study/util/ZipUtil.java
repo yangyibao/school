@@ -23,6 +23,13 @@ public class ZipUtil {
         }
     }
 
+    /**
+     * 压缩文件夹
+     * @param sourceFolder
+     * @param folderName
+     * @param zipOutputStream
+     * @throws IOException
+     */
     public static void compressFolder(String sourceFolder, String folderName, ZipOutputStream zipOutputStream) throws IOException {
         File folder = new File(sourceFolder);
         File[] files = folder.listFiles();

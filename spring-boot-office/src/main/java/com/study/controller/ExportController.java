@@ -2,20 +2,15 @@ package com.study.controller;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.util.ListUtils;
-import com.fasterxml.jackson.databind.ser.std.MapSerializer;
+import com.alibaba.excel.util.MapUtils;
 import com.study.model.BcSerXyzpGwglVO;
 import com.study.model.DataVO1;
-import com.study.service.BcSerXyzpGwglVOService;
-import com.study.util.ExcelExportUtil;
-import com.study.util.ExcelImportUtil;
-import org.apache.commons.compress.utils.Lists;
+import com.study.model.PoiYzVO;
+import com.study.util.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
@@ -59,7 +54,7 @@ public class ExportController {
     }
 
     /**
-     * 导出excel poi方式
+     * 导出excel数据列表 poi方式
      * http://localhost:8080/ExportExcel
      * @param response
      */
@@ -106,7 +101,8 @@ public class ExportController {
     }
 
     /**
-     *  导出excel easyExcel 方式
+     * http://localhost:8080/easyExcelExport
+     *  导出excel数据列表 easyExcel 方式
      * @param response
      */
     @GetMapping(value = "/easyExcelExport")
@@ -140,4 +136,108 @@ public class ExportController {
 
     }
 
+
+    /**
+     * http://localhost:8080/easyExcelFillDataExport
+     *  导出excel数据文件 填充表格且带印章  easyExcel 方式
+     *  1.excel 填充
+     *  2.excle 增加印章
+     *  3.excel 转为 pdf 3页以内
+     *  4.pdf 添加水印
+     *  5.返回带水印的pdf路径
+     */
+    @GetMapping(value = "/easyExcelFillDataExport")
+    public Map<String, Object> easyExcelFillDataExport(){
+        Map<String, Object> rsMap = new HashMap<>();
+
+        // 1.填充excel 开始
+        String templateFileName = TestFileUtil.getPath() + "demo" + File.separator + "fill" + File.separator + "simple.xlsx";
+
+        String name = TestFileUtil.getPath() + "simpleFill" + System.currentTimeMillis();
+        // 方案2 根据Map填充
+        String fileName =  name + ".xlsx";
+        String pdfFileName =  name + ".pdf";
+        String warterFileName = name+"-wt.pdf";
+        // 这里 会填充到第一个sheet， 然后文件流会自动关闭
+        Map<String, Object> map = MapUtils.newHashMap();
+        map.put("name", "张三");
+        map.put("number", 5.2);
+        EasyExcel.write(fileName).withTemplate(templateFileName).sheet().doFill(map);
+        // 填充excel 结束
+
+        // 2.增加印章 开始
+        String yzImg = TestFileUtil.getPath() + "demo" + File.separator + "fill" + File.separator + "10101.png";
+        PoiYzVO poiYzVO = new PoiYzVO();
+        poiYzVO.setCol1(2);
+        poiYzVO.setRow1(9);
+        poiYzVO.setCol2(3);
+        poiYzVO.setRow2(15);
+        poiYzVO.setImgPath(yzImg);
+        PoiYzUtil poiYzUtil = new PoiYzUtil();
+        Map<String, Object> yzMap = poiYzUtil.drawImg(fileName, poiYzVO);
+        // 增加印章 结束
+
+        // 3.excel存为pdf 开始
+        PdfSpireUtil pdfUitl = new PdfSpireUtil();
+        pdfUitl.saveFileToPdf(fileName, pdfFileName);
+        // 3.excel存为pdf 结束
+
+        if((boolean)yzMap.get("flag")){
+            // 4.pdf增加水印 开始
+            PdfWaterUtil pdfWaterUtil = new PdfWaterUtil();
+            Map<String, Object> pdfMap = pdfWaterUtil.drawWater(pdfFileName, warterFileName);
+            // 4.pdf增加水印 结束
+            if((boolean)pdfMap.get("flag")){
+                File file1 = new File(fileName);
+                File file2 = new File(pdfFileName);
+                file1.delete();
+                file2.delete();
+                rsMap.put("flag", true);
+                rsMap.put("path", warterFileName);
+                return rsMap;
+            }
+        }
+
+        rsMap.put("flag", false);
+        return rsMap;
+    }
+
+    /**
+     * doc 转换为 pdf
+     * http://localhost:8080/parseDocToPdf
+     * @param path
+     * @return
+     */
+    @GetMapping(value = "/parseDocToPdf")
+    public Map<String, Object> parseDocToPdf(String path) throws Exception {
+        Map<String, Object> rsMap = new HashMap<>();
+        String splitTarget = TestFileUtil.getPath() + "demo" + File.separator;
+        path = TestFileUtil.getPath() + "demo" + File.separator + "fill" + File.separator + "wx.docx";
+
+        String downloadPath =  path;
+        File file = new File( downloadPath);
+        if(!file.exists()){
+            rsMap.put("flag", true);
+            rsMap.put("message", "请检查文件路径!");
+            return rsMap;
+        }
+        System.out.println(path);
+
+        String fileName = path.substring(path.lastIndexOf(File.separator), path.lastIndexOf("."));
+        String pdfFileName = fileName + ".pdf";
+
+        String tmpRealPath = file.getParentFile().getAbsolutePath()+ pdfFileName;
+
+
+        Map<String, Object > tmpMap = WordToPdfUtils.word2pdf(downloadPath, tmpRealPath);
+        if((boolean)tmpMap.get("flag")){
+            String ftpPath = tmpRealPath.replace(splitTarget, "");
+            rsMap.put("flag", true);
+            rsMap.put("path", tmpRealPath);
+            rsMap.put("ftpPath", ftpPath);
+            return rsMap;
+        }
+
+        return tmpMap;
+    }
 }

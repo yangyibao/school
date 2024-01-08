@@ -18,6 +18,10 @@ public class ZipController {
 
     private Logger log = LoggerFactory.getLogger(this.getClass().getName());
 
+    /**
+     * 压缩文件
+     * @return
+     */
     @RequestMapping("testZip")
     public Map<String, Object> testZip(){
 
