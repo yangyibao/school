@@ -131,6 +131,13 @@
             <version>23.4</version>
             <classifier>jdk17</classifier>
         </dependency>
+
+        <!-- freemarker jar -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.28</version>
+        </dependency>
     </dependencies>
 
 

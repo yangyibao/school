@@ -54,7 +54,7 @@ public class ExportController {
     }
 
     /**
-     * 导出excel数据列表 poi方式
+     * 将数据列表 导出到excel数据列表 poi方式
      * http://localhost:8080/ExportExcel
      * @param response
      */
@@ -102,7 +102,7 @@ public class ExportController {
 
     /**
      * http://localhost:8080/easyExcelExport
-     *  导出excel数据列表 easyExcel 方式
+     *  将一个数组导出到excel数据列表 easyExcel 方式
      * @param response
      */
     @GetMapping(value = "/easyExcelExport")
@@ -203,7 +203,7 @@ public class ExportController {
     }
 
     /**
-     * doc 转换为 pdf
+     * 将doc 转换为 pdf
      * http://localhost:8080/parseDocToPdf
      * @param path
      * @return
@@ -237,7 +237,25 @@ public class ExportController {
             rsMap.put("ftpPath", ftpPath);
             return rsMap;
         }
-
         return tmpMap;
     }
+
+    /**
+     * 填充 doc模板，并且盖章等功能
+     * http://localhost:8080/fillDocTest
+     * @return
+     */
+    @GetMapping(value = "/fillDocTest")
+    public Map<String, Object> fillDocTest(){
+        WordFillUitl wordFillUitl = new WordFillUitl();
+        wordFillUitl.doTest();
+        Map<String, Object> rsMap = new HashMap<>();
+        rsMap.put("flag", true);
+        rsMap.put("message", "");
+        return rsMap;
+    }
+
+    /**
+     * 关于 把数据写入excel模板中. 更多填充详见 EasyExcelFillTest 的示例
+     */
 }

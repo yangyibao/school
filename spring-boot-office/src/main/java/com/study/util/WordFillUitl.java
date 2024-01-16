@@ -1,17 +1,18 @@
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
+package com.study.util;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.misc.BASE64Encoder;
-
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import sun.misc.BASE64Encoder;
 
-public class Test {
+public class WordFillUitl {
 
-    private static Logger log = LoggerFactory.getLogger(Test.class.getName());
+    private static Logger log = LoggerFactory.getLogger(WordFillUitl.class.getName());
 
     public static Map<String, Object> getRsMap(boolean flg, String errorMsg){
         Map<String,Object> rsMap = new HashMap<>();
@@ -99,7 +100,7 @@ public class Test {
         //符合
         if(1 == num){
             return "<w:tcPr><w:tcW w:w=\"1174\" w:type=\"dxa\"/><w:vAlign w:val=\"center\"/></w:tcPr><w:p><w:pPr><w:adjustRightInd w:val=\"0\"/><w:snapToGrid w:val=\"0\"/><w:jc w:val=\"center\"/><w:rPr><w:color w:val=\"000000\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:hint=\"eastAsia\"/><w:color w:val=\"000000\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr><w:sym w:font=\"Wingdings 2\" w:char=\"0052\"/></w:r><w:r><w:rPr><w:rFonts w:hint=\"eastAsia\"/><w:color w:val=\"000000\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr><w:t>符</w:t></w:r><w:r><w:rPr><w:rFonts w:hint=\"eastAsia\"/><w:color w:val=\"000000\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/><w:lang w:val=\"en-US\" w:eastAsia=\"zh-CN\"/></w:rPr><w:t xml:space=\"preserve\">  </w:t></w:r><w:r><w:rPr><w:rFonts w:hint=\"eastAsia\"/><w:color w:val=\"000000\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr><w:t>合</w:t></w:r></w:p><w:p><w:pPr><w:adjustRightInd w:val=\"0\"/><w:snapToGrid w:val=\"0\"/><w:jc w:val=\"center\"/><w:rPr><w:color w:val=\"000000\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:hint=\"eastAsia\"/><w:color w:val=\"000000\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr><w:sym w:font=\"Wingdings 2\" w:char=\"00A3\"/></w:r><w:r><w:rPr><w:rFonts w:hint=\"eastAsia\"/><w:color w:val=\"000000\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr><w:t>不符合</w:t></w:r></w:p>";
-        //不符合
+            //不符合
         }else{
             return "<w:tcPr><w:tcW w:w=\"1174\" w:type=\"dxa\"/><w:vAlign w:val=\"center\"/></w:tcPr><w:p><w:pPr><w:adjustRightInd w:val=\"0\"/><w:snapToGrid w:val=\"0\"/><w:jc w:val=\"center\"/><w:rPr><w:color w:val=\"000000\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:hint=\"eastAsia\"/><w:color w:val=\"000000\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr><w:sym w:font=\"Wingdings 2\" w:char=\"00A3\"/></w:r><w:r><w:rPr><w:rFonts w:hint=\"eastAsia\"/><w:color w:val=\"000000\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr><w:t>符</w:t></w:r><w:r><w:rPr><w:rFonts w:hint=\"eastAsia\"/><w:color w:val=\"000000\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/><w:lang w:val=\"en-US\" w:eastAsia=\"zh-CN\"/></w:rPr><w:t xml:space=\"preserve\">  </w:t></w:r><w:r><w:rPr><w:rFonts w:hint=\"eastAsia\"/><w:color w:val=\"000000\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr><w:t>合</w:t></w:r></w:p><w:p><w:pPr><w:adjustRightInd w:val=\"0\"/><w:snapToGrid w:val=\"0\"/><w:jc w:val=\"center\"/><w:rPr><w:color w:val=\"000000\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:hint=\"eastAsia\"/><w:color w:val=\"000000\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr><w:sym w:font=\"Wingdings 2\" w:char=\"0052\"/></w:r><w:r><w:rPr><w:rFonts w:hint=\"eastAsia\"/><w:color w:val=\"000000\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr><w:t>不符合</w:t></w:r></w:p>";
         }
@@ -114,11 +115,6 @@ public class Test {
         map.put("p3", "胡适");
         map.put("p4", "胡适");
         map.put("p5", "15566442211");
-//        map.put("p1", "1");
-//        map.put("p2", "2");
-//        map.put("p3", "3");
-//        map.put("p4", "4");
-//        map.put("p5", "5");
         map.put("p6", "2022");
         map.put("p7", "08");
         map.put("p8", "02");
@@ -179,21 +175,24 @@ public class Test {
         map.put("i24",getChekBox(1));
         map.put("i25",getChekBox(1));
         return map;
-
     }
 
-    public static void main(String[] args) throws Exception {
-        String templatePath = "C:\\doc\\tomp";
-//        String templateName = "final1.ftl";
+    public void doTest(){
+        String templatePath = TestFileUtil.getPath() +"demo" + File.separator +  "filldoc";
         String templateName = "temp.xml";
-        String targetPath = "C:\\doc\\tomp";
-        String targetName = "temp.doc";
+        String targetPath = TestFileUtil.getPath() +"demo" + File.separator + "filldoc";
+        String targetName = System.currentTimeMillis()+".doc";
 
         Map<String, Object> rsMap = getWrodFile(getParamMap(), templatePath,templateName, targetPath, targetName);
         System.out.println(rsMap.get("flg"));
         if(rsMap.containsKey("file")){
             System.out.println(rsMap.get("file"));
         }
+
+    }
+
+    public static void main(String[] args) {
+        new WordFillUitl().doTest();
     }
 
 }
