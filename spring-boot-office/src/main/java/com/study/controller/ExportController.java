@@ -204,6 +204,7 @@ public class ExportController {
 
     /**
      * 将doc 转换为 pdf
+     * 支持3页以上的word 转pdf
      * http://localhost:8080/parseDocToPdf
      * @param path
      * @return
@@ -258,4 +259,19 @@ public class ExportController {
     /**
      * 关于 把数据写入excel模板中. 更多填充详见 EasyExcelFillTest 的示例
      */
+
+    //其他示例：
+    //bcssV2  分支shizhi-hbed
+    //综合聘用备案表打印
+    //EasyExcel 有个模板文件=>填充数据=>加盖公章=>转换为pdf=>添加水印=>返回文件路径
+    //注意 注意 注意 这个spire 免费的 doc只能有3页内
+    //注意 注意 注意 这个spire 免费的 doc只能有3页内
+    //注意 注意 注意 这个spire 免费的 doc只能有3页内
+    //示例地址: BcSerZhPybabFinishVOController.getPdfFilePath
+
+
+    //三页以上的doc文档转换为 pdf
+    //Map<String, Object > tmpMap = WordToPdfUtils.word2pdf(downloadPath, tmpRealPath);
+
+
 }

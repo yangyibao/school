@@ -68,5 +68,10 @@ public class SerCompanyServiceImpl implements SerCompanyService {
         return serCompanyMapper.selectSerCompanyListTagAsso();
     }
 
+    @Override
+    public SerCompanyVO querySerCompanyByIdStr(String companyId) {
+        return serCompanyMapper.selectSerCompanyByIdStr(companyId);
+    }
+
 
 }

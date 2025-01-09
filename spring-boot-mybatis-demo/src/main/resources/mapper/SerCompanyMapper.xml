@@ -155,6 +155,11 @@
     <!-- 详情查询 -->
     <select id="selectSerCompanyById" resultMap="resultMap" parameterType="java.lang.Integer">
         select company_id,company_name, company_code, company_msg, company_crdt from ser_company where company_id=#{companyId, jdbcType=INTEGER}
+
+    </select>
+    <select id="selectSerCompanyByIdStr" resultMap="resultMap">
+         <!-- select company_id,company_name, company_code, company_msg, company_crdt from ser_company where company_id=${companyId} -->
+        select company_id,company_name, company_code, company_msg, company_crdt from ser_company where company_id=#{companyId}
     </select>
 
 </mapper>

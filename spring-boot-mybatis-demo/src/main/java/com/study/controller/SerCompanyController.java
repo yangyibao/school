@@ -181,5 +181,17 @@ public class SerCompanyController {
     }
 
 
-
+    /**
+     * http://localhost:8081/test
+     * @param companyId
+     * @return
+     */
+    @RequestMapping(value = "test")
+    @ResponseBody
+    public SerCompanyVO  test(String companyId){
+        if(log.isDebugEnabled()){
+            log.debug("do querySerCompanyList begin. {}" , companyId);
+        }
+        return serCompanyService.querySerCompanyByIdStr(companyId);
+    }
 }

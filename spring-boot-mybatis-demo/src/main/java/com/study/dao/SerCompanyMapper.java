@@ -81,4 +81,7 @@ public interface SerCompanyMapper {
      * @return
      */
     SerCompanyTagVO getSerCompanyTag(int companyId);
+
+
+    SerCompanyVO selectSerCompanyByIdStr(String companyId);
 }

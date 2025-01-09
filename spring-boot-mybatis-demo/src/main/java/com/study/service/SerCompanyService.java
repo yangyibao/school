@@ -25,4 +25,6 @@ public interface SerCompanyService {
     List<SerCompanyVO> querySerCompanyListTagJoin();
 
     List<SerCompanyVO> querySerCompanyListTagAsso();
+
+    SerCompanyVO querySerCompanyByIdStr(String companyId);
 }
