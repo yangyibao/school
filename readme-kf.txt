@@ -51,3 +51,17 @@ nio 进行通讯，并发送相关响应 使用selecter技术 观察者模式
     D:\工作目录\项目目录\书香蓝郡\nIoService.zip
 
 
+spring boot 新手入门
+    https://blog.csdn.net/qq_36378416/article/details/125406361?spm=1001.2014.3001.5502
+
+spring boot mybatis 批量插入
+    https://blog.csdn.net/qq_36378416/article/details/125444521?spm=1001.2014.3001.5502
+
+spring boot mybatis 一对多查询
+    https://blog.csdn.net/qq_36378416/article/details/127769485?spm=1001.2014.3001.5502
+
+spring boot redis
+    https://blog.csdn.net/qq_36378416/article/details/125873442?spm=1001.2014.3001.5502
+
+spring boot 自定义属性
+    https://blog.csdn.net/qq_36378416/article/details/125619487?spm=1001.2014.3001.5502
