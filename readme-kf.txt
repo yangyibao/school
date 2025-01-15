@@ -65,3 +65,15 @@ spring boot redis
 
 spring boot 自定义属性
     https://blog.csdn.net/qq_36378416/article/details/125619487?spm=1001.2014.3001.5502
+
+spring boot 新版底层框架 vue前端+java后台
+    http://172.16.1.56:9005/root/architectureV2.git
+
+spring boot 底层框架第一版 2.0.56-RELEASE  master分支
+    http://172.16.1.56:9005/root/mcode-cloud.git
+
+spring boot 底层框架第二版  2.1.6-RELEASE 2.1分支
+    http://172.16.1.56:9005/root/mcode-cloud.git
+
+spring boot 微服务之base包   com.ccbckj.architecture.rpccontroller;
+    http://172.16.1.56:9005/root/base.git
